@@ -14,7 +14,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_18_223650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "disconunts", force: :cascade do |t|
+  create_table "discounts", force: :cascade do |t|
     t.string "name"
     t.decimal "percentage"
     t.datetime "start_date"
@@ -58,13 +58,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_18_223650) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_disconunts", force: :cascade do |t|
+  create_table "user_discounts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.bigint "disconunt_id"
-    t.index ["disconunt_id"], name: "index_user_disconunts_on_disconunt_id"
-    t.index ["user_id"], name: "index_user_disconunts_on_user_id"
+    t.bigint "discount_id"
+    t.index ["discount_id"], name: "index_user_discounts_on_discount_id"
+    t.index ["user_id"], name: "index_user_discounts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -87,6 +87,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_18_223650) do
 
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"
-  add_foreign_key "user_disconunts", "disconunts"
-  add_foreign_key "user_disconunts", "users"
+  add_foreign_key "user_discounts", "discounts"
+  add_foreign_key "user_discounts", "users"
 end

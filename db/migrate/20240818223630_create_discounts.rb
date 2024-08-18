@@ -1,6 +1,6 @@
-class CreateDisconunts < ActiveRecord::Migration[7.1]
+class CreateDiscounts < ActiveRecord::Migration[7.1]
   def change
-    create_table :disconunts do |t|
+    create_table :discounts do |t|
       t.string :name
       t.decimal :percentage
       t.datetime :start_date
@@ -12,11 +12,11 @@ class CreateDisconunts < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    create_table :user_disconunts do |t|
+    create_table :user_discounts do |t|
       t.timestamps
     end
 
-    add_reference :user_disconunts, :user, foreign_key: true
-    add_reference :user_disconunts, :disconunt, foreign_key: true
+    add_reference :user_discounts, :user, foreign_key: true
+    add_reference :user_discounts, :discount, foreign_key: true
   end
 end
