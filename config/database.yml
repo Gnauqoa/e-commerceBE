@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: wds-gu-service_development
+  database: e-commerce-service_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -59,7 +59,7 @@ test:
   adapter: postgresql
   encoding: unicode
   port: <%= ENV["DATABASE_PORT"] || '5432' %>
-  database: <%= ENV["DATABASE_NAME"] || 'wds_service_test' %>
+  database: <%= ENV["DATABASE_NAME"] || 'e-commerce_service_test' %>
   pool: 25
   host: <%= ENV["DATABASE_HOST"] %>
   username: <%= ENV["DATABASE_USR"] %>
