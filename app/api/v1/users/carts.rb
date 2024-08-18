@@ -1,6 +1,6 @@
 module V1
   module Users
-    class Cart < PublicBase
+    class Carts < PublicBase
       resources :users do
         namespace "cart" do
           desc 'Add product to cart',
