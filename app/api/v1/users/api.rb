@@ -6,6 +6,7 @@ module V1
       mount Profile
       mount Users
       mount Cart
+      mount Order
       add_swagger_documentation hide_documentation_path: true,
                                 mount_path: "/user_swagger_doc_v1",
                                 doc_version: '0.0.1',

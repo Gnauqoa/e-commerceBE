@@ -17,6 +17,7 @@ class User < ApplicationRecord
   validates_format_of :username, with: /\A[\w\d_.]*\z/i, if: -> { username.present? }
   has_many :orders
   has_many :user_discounts
+  has_many :cart_items
 
   def initialize(*args)
     super(*args)
