@@ -38,6 +38,10 @@ module V1
 
           desc 'Get orders',
               summary: 'Get orders'
+          params do
+            optional :page, type: Integer, desc: 'Page # from 1'
+            optional :per_page, type: Integer, desc: 'Number of item per page'
+          end
           get do
             paginated_response(current_user.orders)
           end
