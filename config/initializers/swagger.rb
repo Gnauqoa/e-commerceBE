@@ -11,7 +11,7 @@ GrapeSwaggerRails.options.before_action do
   when '/v1-user-api-docs/'
     GrapeSwaggerRails.options.url = '/api/user_swagger_doc_v1.json'
     authenticate_or_request_with_http_basic do |username, password|
-      username == 'streaming' && password == '123456'
+      username == 'ecom' && password == '123456'
     end
   end
 end
