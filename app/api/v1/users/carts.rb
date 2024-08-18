@@ -54,6 +54,10 @@ module V1
 
           desc 'Get cart',
               summary: 'Get cart'
+          params do
+            optional :page, type: Integer, desc: 'Page # from 1'
+            optional :per_page, type: Integer, desc: 'Number of item per page'  
+          end
           get do
             if (!current_user)
               error!(failure_response('Unauthorized'), 401)
