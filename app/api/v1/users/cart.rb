@@ -60,7 +60,7 @@ module V1
             end
             cart_items = CartItem.where(user_id: current_user.id)
 
-            format_response(cart_items)
+            paginated_response(cart_items)
           end
         end
       end
