@@ -10,9 +10,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_05_045226) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_18_223650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "disconunts", force: :cascade do |t|
+    t.string "name"
+    t.decimal "percentage"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "rule"
+    t.integer "stock"
+    t.integer "quantity"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "quantity"
+    t.decimal "price"
+    t.jsonb "product_metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.decimal "total_amount"
+    t.decimal "total_final"
+    t.string "status"
+    t.jsonb "discount_metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.decimal "price"
+    t.integer "stock"
+    t.jsonb "metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_disconunts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "disconunt_id"
+    t.index ["disconunt_id"], name: "index_user_disconunts_on_disconunt_id"
+    t.index ["user_id"], name: "index_user_disconunts_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
@@ -32,4 +85,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_05_045226) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "users"
+  add_foreign_key "user_disconunts", "disconunts"
+  add_foreign_key "user_disconunts", "users"
 end
