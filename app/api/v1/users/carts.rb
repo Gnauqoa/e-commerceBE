@@ -10,14 +10,8 @@ module V1
             requires :quantity, type: Integer, desc: 'Quantity'
           end
           post do
-            cart_item = CartItem.find_or_initialize_by(
-              user_id: current_user.id,
-              product_id: params[:product_id]
-            )
-
-            cart_item.quantity = cart_item.quantity.to_i + params[:quantity].to_i
-
-            if cart_item.save
+            cart_item = ::V1::Carts::AddItem.call(product_id: params[:product_id], current_user: current_user, quantity: params[:quantity]).success
+            if cart_item
               status 201
               format_response(cart_item)
             else
@@ -32,20 +26,8 @@ module V1
             requires :quantity, type: Integer, desc: 'Quantity'
           end
           delete do
-            cart_item = CartItem.find_by(
-              user_id: current_user.id,
-              product_id: params[:product_id]
-            )
-
-            if cart_item.present?
-              cart_item.quantity = cart_item.quantity.to_i - params[:quantity].to_i
-
-              if cart_item.quantity <= 0
-                cart_item.destroy
-              else
-                cart_item.save
-              end
-
+            cart_item = ::V1::Carts::RemoveItem.call(product_id: params[:product_id], current_user: current_user, quantity: params[:quantity]).success
+            if cart_item
               status 204
             else
               error!(failure_response('Product not found'), 404)
@@ -62,7 +44,7 @@ module V1
             if (!current_user)
               error!(failure_response('Unauthorized'), 401)
             end
-            cart_items = CartItem.where(user_id: current_user.id)
+            cart_items = CartItem.where(user_id: current_user.id).order(created_at: :desc)
 
             paginated_response(cart_items)
           end
