@@ -7,17 +7,17 @@ module V1
         params do
           optional :page, type: Integer, desc: 'Page # from 1'
           optional :per_page, type: Integer, desc: 'Number of item per page'
-          optional :status, type: String, desc: 'Status', values: Discount.statuses.keys, default: 'active'
+          optional :status, type: String, desc: 'Status', values: ['active', 'inactive', 'all'], default: 'active'
         end
         get do
-          discounts = Discount.where(status: params[:status])
+          discounts = Discount.where(status: params[:status]) if params[:status] != 'all'
           current_time = Time.now
           discounts = discounts.where('start_date <= ? AND end_date >= ?', current_time, current_time)
           paginated_response(discounts)
         end
 
-        desc 'Get available discounts',
-            summary: 'Get available discounts'
+        desc 'Check available discounts',
+            summary: 'Check available discounts'
         params do
           optional :page, type: Integer, desc: 'Page # from 1'
           optional :per_page, type: Integer, desc: 'Number of item per page'
@@ -34,11 +34,13 @@ module V1
           
           paginated_response(discounts)
         end
+
         desc 'Get discount',
             summary: 'Get discount'
         params do
           requires :id, type: Integer, desc: 'Discount ID'
         end
+
         get ':id' do
           discount = Discount.find(params[:id])
 
