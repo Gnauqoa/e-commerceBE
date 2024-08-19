@@ -10,12 +10,12 @@ module V1
             requires :quantity, type: Integer, desc: 'Quantity'
           end
           post do
-            cart_item = ::V1::Carts::AddItem.call(product_id: params[:product_id], current_user: current_user, quantity: params[:quantity]).success
-            if cart_item
+            cart_item = ::V1::Carts::AddItem.call(product_id: params[:product_id], current_user: current_user, quantity: params[:quantity])
+            if cart_item.success?
               status 201
-              format_response(cart_item)
+              format_response(cart_item.success)
             else
-              error!(failure_response(*cart_item.errors.full_messages), 422)
+              error!(failure_response(*cart_item.failure), 422)
             end
           end
 
@@ -26,11 +26,11 @@ module V1
             requires :quantity, type: Integer, desc: 'Quantity'
           end
           delete do
-            cart_item = ::V1::Carts::RemoveItem.call(product_id: params[:product_id], current_user: current_user, quantity: params[:quantity]).success
-            if cart_item
+            cart_item = ::V1::Carts::RemoveItem.call(product_id: params[:product_id], current_user: current_user, quantity: params[:quantity])
+            if cart_item.success?
               status 204
             else
-              error!(failure_response('Product not found'), 404)
+              error!(failure_response(*cart_item.failure), 422)
             end
           end
 
