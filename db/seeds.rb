@@ -7,6 +7,16 @@ user_2 = User.create!(first_name: 'User', last_name: ' 3', password: '123123123@
 user_3 = User.create!(first_name: 'User', last_name: ' 4', password: '123123123@q', email: 'user3@streaming.com')
 user_4 = User.create!(first_name: 'User', last_name: ' 5', password: '123123123@q', email: 'user4@streaming.com')
 
+product = Product.create!(name: 'Product 1', price: 1000, description: 'Product 1 description', stock: 100)
+product = Product.create!(name: 'Product 2', price: 2000, description: 'Product 2 description', stock: 100)
+product = Product.create!(name: 'Product 3', price: 3000, description: 'Product 3 description', stock: 100)
+product = Product.create!(name: 'Product 4', price: 4000, description: 'Product 4 description', stock: 0)
+product = Product.create!(name: 'Product 5', price: 5000, description: 'Product 5 description', stock: 100)
+
+discount1 = Discount.create!(name: 'Discount 1', stock: 100, quantity: 100, percentage: 30, start_date: Time.now, end_date: Time.now + 1.day, total_require: 1000)
+discount2 = Discount.create!(name: 'Discount 2', stock: 100, quantity: 100, percentage: 35, start_date: Time.now, end_date: Time.now + 1.day, total_require: 0)
+discount3 = Discount.create!(name: 'Discount 1', stock: 100, quantity: 100, percentage: 17, start_date: Time.now, end_date: Time.now + 1.day, total_require: 500)
+
 # playlist_0 = Playlist.create!(name: 'Playlist 0', user: user_0)
 # playlist_1 = Playlist.create!(name: 'Playlist 1', user: user_1)
 # playlist_2 = Playlist.create!(name: 'Playlist 2', user: user_2)
