@@ -8,6 +8,7 @@ module V1
       mount Carts
       mount Orders
       mount Products
+      mount Discounts
       add_swagger_documentation hide_documentation_path: true,
                                 mount_path: "/user_swagger_doc_v1",
                                 doc_version: '0.0.1',

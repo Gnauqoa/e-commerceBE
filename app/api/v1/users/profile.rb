@@ -4,6 +4,16 @@ module V1
     class Profile < Base
       namespace :users do
         resources :current do
+          desc 'My discounts', summary: 'Get discounts of current user'
+          params do
+            optional :page, type: Integer, desc: 'Page number'
+            optional :per_page, type: Integer, desc: 'Per page number', default: 50
+          end
+          get :discounts do
+            items = current_user.user_discounts
+            paginated_response(items)
+          end
+
           desc 'Get notifications of current user', summary: 'Get notifications of current user'
           params do
             optional :page, type: Integer, desc: 'Page number'
