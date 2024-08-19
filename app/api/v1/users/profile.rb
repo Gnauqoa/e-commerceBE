@@ -8,10 +8,12 @@ module V1
           params do
             optional :page, type: Integer, desc: 'Page number'
             optional :per_page, type: Integer, desc: 'Per page number', default: 50
+            optional :status, type: String, desc: 'Status', values: ["all", "avaliable", "used"], default: 'avaliable'
           end
           get :discounts do
-            items = current_user.user_discounts
-            paginated_response(items)
+            items = current_user.user_discounts.order(created_at: :desc)
+            items = items.where(status: params[:status]) if params[:status] != 'all'
+            paginated_response(items, serializer: OrderUserDiscountSerializer)
           end
 
           desc 'Get notifications of current user', summary: 'Get notifications of current user'
