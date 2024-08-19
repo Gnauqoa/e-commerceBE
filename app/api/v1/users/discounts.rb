@@ -2,6 +2,26 @@ module V1
   module Users
     class Discounts < PublicBase
       resources :discounts do
+        desc 'Update discount',
+            summary: 'Update discount'
+        params do
+          optional :name, type: String, desc: 'Name'
+          optional :description, type: String, desc: 'Description'
+          optional :percentage, type: BigDecimal, desc: 'Percentage'
+        end
+        put ':id' do
+          discount = Discount.find(params[:id])
+
+          if discount.present?
+            if discount.update(declared(params))
+              format_response(discount)
+            else
+              error!(failure_response(discount.errors.full_messages), 422)
+            end
+          else
+            error!(failure_response('Discount not found'), 404)
+          end
+        end
         desc 'Get discounts',
             summary: 'Get discounts'
         params do
