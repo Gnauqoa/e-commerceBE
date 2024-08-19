@@ -1,5 +1,4 @@
-# Streaming Music Backend
-
+# Ecommerce Backend
 Welcome to the Streaming Music Backend repository! This backend system is designed to handle the server-side functionalities required for a streaming music service. Below you'll find information on how to set up, configure, and use this backend system.
 
 ## Table of Contents
@@ -47,7 +46,6 @@ The backend system can be configured using environment variables. Here are the k
 - `ARTIST_JWT_PRIVATE_KEY`: RSA PRIVATE KEY FOR ARTIST.
 - `RAILS_ENV`: THE RAILS ENVIRONMENT.
 - `PORT`: PORT OF APPLICATION.
-- `MONGODB_HOST`: MONGODB HOST URL
 
 Or you can check in file `.env.example`
 
@@ -59,16 +57,12 @@ Start application with command: `rails s`, application will run on port config i
 Once the backend server is up and running, you can interact with it using the provided APIs. 
 
 The API documentation can be found:
-- User api docs: [user](http://localhost:3000/user-api-docs)
-- Artist api docs: [artist](localhost:3000/artist-api-docs)
-- Admin page: [admin](localhost:3000/admin)
+- User api docs: [user](http://localhost:3000/v1-user-api-docs)
+- Admin page: [admin](localhost:3000/avo)
 
 You can use tools like Postman or curl to make API requests and test the functionalities provided by the backend system.
 
 ## Contributing
-
-Contributions to the Streaming Music Backend are welcome! If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
-
 Before contributing, please read the [Contribution Guidelines](CONTRIBUTING.md) for instructions on how to contribute to this project.
 
 ## License
