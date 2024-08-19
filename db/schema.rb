@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_19_003838) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_19_022149) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_19_003838) do
     t.bigint "user_id"
     t.decimal "discount_amount", default: "0.0"
     t.bigint "user_discount_id"
+    t.bigint "discount_id"
+    t.index ["discount_id"], name: "index_orders_on_discount_id"
     t.index ["user_discount_id"], name: "index_orders_on_user_discount_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -105,6 +107,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_19_003838) do
   add_foreign_key "cart_items", "products"
   add_foreign_key "cart_items", "users"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "discounts"
   add_foreign_key "orders", "user_discounts"
   add_foreign_key "orders", "users"
   add_foreign_key "user_discounts", "discounts"
