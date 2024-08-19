@@ -6,7 +6,6 @@ module V1
             summary: 'Update discount'
         params do
           optional :name, type: String, desc: 'Name'
-          optional :description, type: String, desc: 'Description'
           optional :percentage, type: BigDecimal, desc: 'Percentage'
         end
         put ':id' do
